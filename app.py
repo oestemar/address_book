@@ -94,10 +94,6 @@ def display():
 
     return render_template("display.html", users=users)
 
-
-
-if __name__=="__main__":
-    app.run(host="0.0.0.0", port=5000)
     
 #CSVアップロード画面
 @app.route("/upload", methods=["GET"])
@@ -133,3 +129,5 @@ def upload():
 
     return "CSV の取り込みが完了しました"
 
+if __name__=="__main__":
+    app.run(host="0.0.0.0", port=5000)
