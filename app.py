@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import mysql.connector
+import os
 
 app = Flask(__name__)
 
@@ -18,7 +19,7 @@ def init_db():
     conn=get_connection()
     cursor=conn.cursor()
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS address_book (
+        CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255),
             tel VARCHAR(255),
