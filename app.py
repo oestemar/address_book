@@ -51,7 +51,7 @@ def register_form():
 #登録処理
 @app.route("/register", methods=["POST"])
 def register():
-    user=request.form["username"]
+    name=request.form["username"]
     tel=request.form["tel"]
     address=request.form["address"]
 
@@ -60,7 +60,7 @@ def register():
 
     
     query="""
-        INSERT INTO users (user, tel, address) 
+        INSERT INTO users (name, tel, address) 
         VALUES (%s, %s, %s)
 
     """
