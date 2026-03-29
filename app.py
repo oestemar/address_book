@@ -125,7 +125,7 @@ def upload():
     for row in reader:
         if len(row) < 3:
             continue 
-        cursor.execute(query, (row[0],row[1],row[2])
+        cursor.execute(query, (row[0],row[1],row[2]))
     
     conn.commit()
     cursor.close()
