@@ -6,11 +6,30 @@ app = Flask(__name__)
 #MySQLに接続する関数
 def get_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="oestemar",
-        database="address_book"
+        host=os.environ.get("DB_HOST"),
+        user=os.environ.get("DB_USER"),
+        password=os.environ.get("DB_PASSWORD"),
+        database=os.environ.get("DB_NAME"),
+        port=os.environ.get("DB_PORT")
     )
+
+#MySQLにテーブルがないときに自動作成するコード
+def init_db():
+    conn=get_connection()
+    cursor=conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS address_book (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255),
+            tel VARCHAR(255),
+            address VARCHAR(255)
+        )
+        """)
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+init_db()
 
 #TOPページ
 @app.route("/")
