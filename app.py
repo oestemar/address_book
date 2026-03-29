@@ -64,7 +64,7 @@ def register():
         VALUES (%s, %s, %s)
 
     """
-    cursor.execute(query, (username, tel, address))
+    cursor.execute(query, (name, tel, address))
     conn.commit()
 
 
