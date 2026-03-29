@@ -130,5 +130,43 @@ def upload():
 
     return "CSV の取り込みが完了しました"
 
+#Delete画面
+@app.route("/delete", methods=["GET"])
+def delete_form():
+    return render_template("delete.html")
+
+#Delete検索
+@app.route("/delete", methods=["POST"])
+def delete_search():
+    keyword=request.form["keyword"]
+
+    conn=get_connection()
+    cursor=conn.cursor()
+
+    query="SELECT * FROM users WHERE name LIKE *s"
+    cursor.execute(query, ("%" + keyword + "%",))
+    users=cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template("delete.html", users=users)
+
+#Delete確認
+@app.route("/delete_confirm", methods=["POST"])
+def delete_confirm():
+    user_id=request.form["id"]
+
+    conn=get_connection()
+    cursor=conn.cursor()
+
+    cursor.execute("DELETE FROM users WHERE id=%s", (user_id,))
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return "削除が完了しました"
+
 if __name__=="__main__":
     app.run(host="0.0.0.0", port=5000)
