@@ -94,7 +94,40 @@ def display():
 
     return render_template("display.html", users=users)
 
+
+
 if __name__=="__main__":
     app.run(host="0.0.0.0", port=5000)
     
+#CSVアップロード画面
+@app.route("/upload", methods=["GET"]
+    return render_template("upload.html")
+
+#CSVアップロード処理
+@app.route("/upload", methods=["POST"]
+    file=request.files["file"]
+    if file.filename=="":
+        return "ファイルが選択されていません"
+    
+    #CSVを読み込む
+    csv_data=file.read().decode("utf-8").splitlines()
+    reader=csv.reader(csv_data)
+
+    conn=get_connection()
+    cursor=conn.cursor()
+
+    query="""
+        INSERT INTO users(name, tel, address)
+        VALUES (%s, %s, %s)
+    """
+    for row in reader:
+        if len(row) < 3:
+            continue 
+        cursor.execute(query, (row[0],row[1],row[2])
+    
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return "CSV の取り込みが完了しました"
 
