@@ -24,7 +24,7 @@ def init_db():
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS users (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                username VARCHAR(255),
+                name VARCHAR(255),
                 tel VARCHAR(255),
                 address VARCHAR(255)
                 )
@@ -51,7 +51,7 @@ def register_form():
 #登録処理
 @app.route("/register", methods=["POST"])
 def register():
-    username=request.form["username"]
+    user=request.form["username"]
     tel=request.form["tel"]
     address=request.form["address"]
 
@@ -60,7 +60,7 @@ def register():
 
     
     query="""
-        INSERT INTO users (username, tel, address) 
+        INSERT INTO users (user, tel, address) 
         VALUES (%s, %s, %s)
 
     """
