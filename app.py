@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import mysql.connector
 import os
+import time
 
 app = Flask(__name__)
 
@@ -11,24 +12,29 @@ def get_connection():
         user=os.environ.get("DB_USER"),
         password=os.environ.get("DB_PASSWORD"),
         database=os.environ.get("DB_NAME"),
-        port=os.environ.get("DB_PORT")
+        port=int(os.environ.get("DB_PORT"))
     )
 
 #MySQLにテーブルがないときに自動作成するコード
 def init_db():
-    conn=get_connection()
-    cursor=conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255),
-            tel VARCHAR(255),
-            address VARCHAR(255)
-        )
-        """)
-    conn.commit()
-    cursor.close()
-    conn.close()
+    for i in range(5):
+        try:
+            conn=get_connection()
+            cursor=conn.cursor()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS users (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255),
+                tel VARCHAR(255),
+                address VARCHAR(255)
+                )
+            """)
+            conn.commit()
+            cursor.close()
+            conn.close()
+        except Exception as e:
+            print("DB init failed, retrying...", e)
+            time.sleep(2)
 
 init_db()
 
