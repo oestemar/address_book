@@ -100,12 +100,12 @@ if __name__=="__main__":
     app.run(host="0.0.0.0", port=5000)
     
 #CSVアップロード画面
-@app.route("/upload", methods=["GET"]
+@app.route("/upload", methods=["GET"])
 def upload_files():
     return render_template("upload.html")
 
 #CSVアップロード処理
-@app.route("/upload", methods=["POST"]
+@app.route("/upload", methods=["POST"])
 def upload():
     file=request.files["file"]
     if file.filename=="":
