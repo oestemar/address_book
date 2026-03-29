@@ -101,10 +101,12 @@ if __name__=="__main__":
     
 #CSVアップロード画面
 @app.route("/upload", methods=["GET"]
+def upload_files():
     return render_template("upload.html")
 
 #CSVアップロード処理
 @app.route("/upload", methods=["POST"]
+def upload():
     file=request.files["file"]
     if file.filename=="":
         return "ファイルが選択されていません"
