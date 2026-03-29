@@ -143,7 +143,7 @@ def delete_search():
     conn=get_connection()
     cursor=conn.cursor()
 
-    query="SELECT * FROM users WHERE name LIKE *s"
+    query="SELECT * FROM users WHERE name LIKE %s"
     cursor.execute(query, ("%" + keyword + "%",))
     users=cursor.fetchall()
 
