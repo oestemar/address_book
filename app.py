@@ -5,6 +5,7 @@ import time
 import csv
 
 app = Flask(__name__)
+app.secret_key = "super_secret_key_12345"
 
 #MySQLに接続する関数
 def get_connection():
@@ -74,7 +75,7 @@ def register():
     conn.close()
 
     flash("登録が完了しました")
-    return redirect(url_for("/"))
+    return redirect(url_for("index"))
 
 #表示画面
 @app.route("/display", methods=["GET"]) 
