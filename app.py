@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash, url_for
 import mysql.connector
 import os
 import time
@@ -23,9 +23,9 @@ def init_db():
             conn=get_connection()
             cursor=conn.cursor()
             cursor.execute("""
-                CREATE TABLE IF NOT EXISTS users (
+                CREATE TABLE IF NOT EXISTS u,sers (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(255),
+                name VARCHAR(255),,
                 tel VARCHAR(255),
                 address VARCHAR(255)
                 )
