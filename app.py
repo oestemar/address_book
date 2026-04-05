@@ -194,11 +194,5 @@ def delete_confirm():
     cursor.close()
     conn.close()
 
-#Index画面
-@app.route("/index", methods=["GET"])
-def index():
-    return render_template("index.html")
-
-
 if __name__=="__main__":
     app.run(host="0.0.0.0", port=5000)
