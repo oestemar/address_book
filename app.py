@@ -196,7 +196,8 @@ def delete_confirm():
     cursor.close()
     conn.close()
 
-    return "削除が完了しました"
+    flash("削除が完了しました")
+    return redirect(url_for("index"))
 
 if __name__=="__main__":
     app.run(host="0.0.0.0", port=5000)
