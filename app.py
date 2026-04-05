@@ -23,9 +23,9 @@ def init_db():
             conn=get_connection()
             cursor=conn.cursor()
             cursor.execute("""
-                CREATE TABLE IF NOT EXISTS u,sers (
+                CREATE TABLE IF NOT EXISTS users (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(255),,
+                name VARCHAR(255),
                 tel VARCHAR(255),
                 address VARCHAR(255)
                 )
