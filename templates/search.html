@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>キーワード検索</title>
+</head>
+<body>
+	<h1>名前で部分検索して表示</h1>
+	<form action="/search" method="POST">
+		<input type="text" name="keyword1" placeholder="名前の一部を入力">
+		<input type="text" name="keyword2" placeholder="住所の一部を入力">
+		<button type="submit">検索</button>
+	</form>
+	{% if users %}
+		<h2>キーワード検索</h2>
+		<ul>
+			{% for u in users %}
+				<li>
+					{{ u[1] }} ({{ u[2]}} / {{ u[3] }})
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</body>
+</html>
+
+	

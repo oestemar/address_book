@@ -95,7 +95,35 @@ def display():
 
     return render_template("display.html", users=users)
 
-    
+#Search画面
+@app.route("/search", methods=["GET"])
+def search_form():
+    return render_template("search.html")
+
+#Search検索
+@app.route("/search", methods=["POST"])
+def search_data1():
+    keyword1=request.form["keyword1"]
+    keyword2=request.form["keyword2"]
+
+    conn=get_connection()
+    cursor=conn.cursor()
+
+    query="""
+	SELECT * FROM users 
+	WHERE name LIKE %s AND address LIKE %s
+	"""
+    cursor.execute(query, 
+	("%" + keyword1 + "%" if keyword1 else "%",
+	"%" + keyword2 + "%" if keyword2 else "%"	
+    ))
+    users=cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template("search.html", users=users)
+
 #CSVアップロード画面
 @app.route("/upload", methods=["GET"])
 def upload_files():
