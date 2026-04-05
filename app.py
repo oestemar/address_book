@@ -73,7 +73,8 @@ def register():
     cursor.close()
     conn.close()
 
-    return "登録が完了しました"
+    flash("登録が完了しました")
+    return redirect(url_for("index")
 
 #表示画面
 @app.route("/display", methods=["GET"]) 
@@ -193,6 +194,8 @@ def delete_confirm():
 
     cursor.close()
     conn.close()
+
+    return "削除が完了しました"
 
 if __name__=="__main__":
     app.run(host="0.0.0.0", port=5000)
