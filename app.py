@@ -194,7 +194,26 @@ def delete_confirm():
     cursor.close()
     conn.close()
 
-    return "削除が完了しました"
+#Index画面
+@app.route("/register", methods=["GET"])
+def index():
+    return render_template("index.html")
+
+@app.route("/display", methods=["GET"])
+def index():
+    return render_template("index.html")
+
+@app.route("/search", methods=["GET"])
+def index():
+    return render_template("index.html")
+
+@app.route("/upload", methods=["GET"])
+def index():
+    return render_template("index.html")
+
+@app.route("/delete", methods=["GET"])
+def index():
+    return render_template("index.html")
 
 if __name__=="__main__":
     app.run(host="0.0.0.0", port=5000)
