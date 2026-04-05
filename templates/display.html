@@ -9,6 +9,9 @@
 	<form action="/display" method="post">
 		<button type="submit">表示</button>
 	</form>
+	<br><br>
+	<a href="/" class="button-link">TOPへ戻る</a><br>
+
 
 	{% if users %}
 		<table border="1" style="margin-top:20px;">
@@ -28,8 +31,6 @@
 			{% endfor %}
 		</table>
 	{% endif %}
-	<br><br>
-	<a href="/" class="button-link">TOPへ戻る</a><br>
 
 </body>
 </html>

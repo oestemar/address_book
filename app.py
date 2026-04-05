@@ -74,7 +74,7 @@ def register():
     conn.close()
 
     flash("登録が完了しました")
-    return redirect(url_for("index"))
+    return redirect(url_for("/"))
 
 #表示画面
 @app.route("/display", methods=["GET"]) 
