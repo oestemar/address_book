@@ -16,6 +16,17 @@
 	<a href="/search" class="button-link">キーワード検索</a><br>
 	<a href="/upload" class="button-link">CSVファイルアップロード</a><br>
 	<a href="/delete" class="button-link">検索して削除</a>
+	<br><br><br>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	    <div class="flash-messages">
+	      {% for msg in messages %}
+	        <p>{{ msg }}</p>
+	      {% endfor %}
+	    </div>
+	  {% endif %}
+	{% endwith %}
+
 </main>
 </body>
 </html>
