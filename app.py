@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, flash, url_for
+from flask import Flask, request, render_template, flash, url_for, redirect
 import mysql.connector
 import os
 import time
