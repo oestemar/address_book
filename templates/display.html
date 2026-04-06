@@ -7,32 +7,33 @@
 </head>
 <body>
 	<h2>データ一欄</h2>
-	<form action="/display" method="post">
-		<button type="submit">表示</button>
-	</form>
-	<br><br>
-	<a href="/" class="button-link">TOPへ戻る</a><br>
+	<div class="container">
+		<form action="/display" method="post">
+			<button type="submit">表示</button>
+		</form>
+		<br><br>
+		<a href="/" class="button-link">TOPへ戻る</a><br>
 
 
-	{% if users %}
-		<table border="1" style="margin-top:20px;">
-			<tr>
-				<th>ID</th>
-				<th>名前</th>
-				<th>電話</th>
-				<th>住所</th>
-			</tr>
-			{% for u in users %}
-			<tr>
-				<td>{{ u[0] }}</td>
-				<td>{{ u[1] }}</td>
-				<td>{{ u[2] }}</td>
-				<td>{{ u[3] }}</td>
-			</tr>
-			{% endfor %}
-		</table>
-	{% endif %}
-
+		{% if users %}
+			<table border="1" style="margin-top:20px;">
+				<tr>
+					<th>ID</th>
+					<th>名前</th>
+					<th>電話</th>
+					<th>住所</th>
+				</tr>
+				{% for u in users %}
+				<tr>
+					<td>{{ u[0] }}</td>
+					<td>{{ u[1] }}</td>
+					<td>{{ u[2] }}</td>
+					<td>{{ u[3] }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		{% endif %}
+	</div>
 </body>
 </html>
 
