@@ -5,7 +5,7 @@ h1, h2 {
 .container {
 	display: inline-block;
 	text-align: left;
-	bprder: 3px solid black;
+	border: 3px solid black;
 	padding: 20px;
 }
 
