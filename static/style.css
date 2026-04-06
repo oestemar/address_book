@@ -1,9 +1,12 @@
-.container {
-	display: inline-block;
-	text-align: left;
-	bprder: 3px;
-}
-
 h1, h2 {
 	text-align: center;
 }
+
+.container {
+	display: inline-block;
+	text-align: left;
+	bprder: 3px solid black;
+	padding: 20px;
+}
+
+
