@@ -1,6 +1,7 @@
 .container {
 	display: inline-block;
 	text-align: left;
+	bprder: 3px;
 }
 
 h1, h2 {
