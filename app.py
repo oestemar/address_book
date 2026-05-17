@@ -10,6 +10,17 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
+@app.route("/admin/fix")
+def admin_fix():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("ALTER TABLE users ADD COLUMN username VARCHAR(100);")
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return "username カラム追加完了"
+
+
 #MySQLに接続する関数
 def get_connection():
     database_url = os.environ.get("DATABASE_URL")
