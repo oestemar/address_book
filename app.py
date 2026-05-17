@@ -3,18 +3,35 @@ import mysql.connector
 import os
 import time
 import csv
+from urllib.parse import urlparse
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "super_secret_key_12345"
+app.secret_key = os.environ.get("SECRET_KEY")
 
 #MySQLに接続する関数
 def get_connection():
+    database_url = os.environ.get("DATABASE_URL")
+
+    # ローカル（テスト）→ DATABASE_URL がある場合
+    if database_url:
+        url = urlparse(database_url)
+        return mysql.connector.connect(
+            host=url.hostname,
+            user=url.username,
+            password=url.password,
+            database=url.path.lstrip("/"),
+            port=url.port or 3306
+        )
+
+    # Railway（本番）→ DATABASE_URL が無い場合
     return mysql.connector.connect(
         host=os.environ.get("DB_HOST"),
         user=os.environ.get("DB_USER"),
         password=os.environ.get("DB_PASSWORD"),
         database=os.environ.get("DB_NAME"),
-        port=int(os.environ.get("DB_PORT"))
+        port=int(os.environ.get("DB_PORT", 3306))
     )
 
 #MySQLにテーブルがないときに自動作成するコード
@@ -113,7 +130,7 @@ def search_data1():
 
     query="""
 	SELECT * FROM users 
-	WHERE name LIKE %s AND address LIKE %s
+	WHERE username LIKE %s AND address LIKE %s
 	"""
     cursor.execute(query, 
 	("%" + keyword1 + "%" if keyword1 else "%",
@@ -142,11 +159,13 @@ def upload():
     csv_data=file.read().decode("utf-8").splitlines()
     reader=csv.reader(csv_data)
 
+    next(reader, None)
+
     conn=get_connection()
     cursor=conn.cursor()
 
     query="""
-        INSERT INTO users(name, tel, address)
+        INSERT INTO users(username, tel, address)
         VALUES (%s, %s, %s)
     """
     for row in reader:
@@ -158,7 +177,8 @@ def upload():
     cursor.close()
     conn.close()
 
-    return "CSV の取り込みが完了しました"
+    flash("CSV の取り込みが完了しました")
+    return render_template('upload.html')
 
 #Delete画面
 @app.route("/delete", methods=["GET"])
@@ -168,13 +188,21 @@ def delete_form():
 #Delete検索
 @app.route("/delete", methods=["POST"])
 def delete_search():
-    keyword=request.form["keyword"]
+    keyword1=request.form["keyword1"]
+    keyword2=request.form["keyword2"]    
 
     conn=get_connection()
     cursor=conn.cursor()
 
-    query="SELECT * FROM users WHERE name LIKE %s"
-    cursor.execute(query, ("%" + keyword + "%",))
+    query="""
+	SELECT * FROM users 
+	WHERE username LIKE %s AND address LIKE %s
+	"""
+    cursor.execute(query, 
+	("%" + keyword1 + "%" if keyword1 else "%",
+	"%" + keyword2 + "%" if keyword2 else "%"	
+    ))
+
     users=cursor.fetchall()
 
     cursor.close()

@@ -14,14 +14,22 @@
 			<button type="submit">検索</button>
 		</form>
 		{% if users %}
-			<h2>キーワード検索</h2>
-			<ul>
+			<table border="1" style="margin-top:20px;">
+				<tr>
+					<th>ID</th>
+					<th>名前</th>
+					<th>電話</th>
+					<th>住所</th>
+				</tr>
 				{% for u in users %}
-					<li>
-						{{ u[1] }} ({{ u[2]}} / {{ u[3] }})
-					</li>
+				<tr>
+					<td>{{ u[0] }}</td>
+					<td>{{ u[1] }}</td>
+					<td>{{ u[2] }}</td>
+					<td>{{ u[3] }}</td>
+				</tr>
 				{% endfor %}
-			</ul>
+			</table>
 		{% endif %}
 		<br><br>
 		<a href="/" class="button-link">TOPへ戻る</a><br>
