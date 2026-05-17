@@ -10,16 +10,6 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
-@app.route("/admin/fix")
-def admin_fix():
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("ALTER TABLE users ADD COLUMN username VARCHAR(100);")
-    conn.commit()
-    cursor.close()
-    conn.close()
-    return "username カラム追加完了"
-
 
 #MySQLに接続する関数
 def get_connection():
@@ -81,7 +71,7 @@ def register_form():
 #登録処理
 @app.route("/register", methods=["POST"])
 def register():
-    name=request.form["username"]
+    username=request.form["username"]
     tel=request.form["tel"]
     address=request.form["address"]
 
@@ -90,11 +80,11 @@ def register():
 
     
     query="""
-        INSERT INTO users (name, tel, address) 
+        INSERT INTO users (username, tel, address) 
         VALUES (%s, %s, %s)
 
     """
-    cursor.execute(query, (name, tel, address))
+    cursor.execute(query, (username, tel, address))
     conn.commit()
 
 
