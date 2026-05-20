@@ -3,9 +3,6 @@
 Flask と MySQL を使用した住所録管理システムです。  
 ユーザー情報（氏名・電話番号・住所）の **登録・検索・表示・削除・CSV インポート** が可能です。
 
-本番環境は Railway 上で稼働し、Cron により **毎日 5:00 に DB が初期化**されるため、  
-常にクリーンなデモ環境を維持できます。
-
 ---
 
 ## 🚀 機能一覧
@@ -15,7 +12,6 @@ Flask と MySQL を使用した住所録管理システムです。
 - ユーザー検索（Read）
 - ユーザー削除（Delete）
 - CSV インポート（複数件一括登録）
-- 毎日 5:00 に DB 初期化（Railway Cron）
 - MySQL 自動接続（ローカル / 本番切り替え）
 
 ---
@@ -50,7 +46,6 @@ address_book/
 │  .env
 │  README.md
 │  requirements.txt
-│  reset.sql
 │
 ├─static/
 │      style.css
@@ -82,7 +77,7 @@ Railway の「New Project」→「Deploy from GitHub」から、アップロー�
 
 5. Flask アプリが起動し、MySQL が自動作成
 Railway の自動検出により Flask アプリが起動し、同時に空の MySQL インスタンスが作成されます。
-環境変数（DB_HOST / DB_USER / DB_PASSWORD / DB_NAME）は 自分で設定します。
+環境変数（DATABASE_URL,PORT, SECRET_KEY）は 自分で設定します。
 
 6. CSV を使って初期データを登録
 アプリの「CSV アップロード」画面から、会員データを一括登録できます。
@@ -110,15 +105,9 @@ CSV の仕様（3 列）
 　pip install -r requirements.txt
 
 ３．ローカル用MySQL準備
-　CREATE DATABASE addressbook;
+　CREATE DATABASE address_book;
 
-４．app.py の DB 接続設定をローカル用に変更
-	db = mysql.connector.connect(
-    	host="localhost",
-    	user="root",
-    	password="あなたのパスワード",
-    	database="addressbook"
-)
+４．app.py の DB 接続設定（.envファイル）を自分のローカル環境用に変更
 
 ５．Flask を起動
 	python app.py
