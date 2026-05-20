@@ -58,6 +58,12 @@ def init_db():
 
 init_db()
 
+#起動後に速やかにレスポンスを返すため
+@app.route("/health")
+def health():
+    return "OK", 200
+
+
 #TOPページ
 @app.route("/")
 def index():
